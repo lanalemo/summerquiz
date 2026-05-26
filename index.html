@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Твій напрям зросту цього літа 🍋</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --yellow: #F2E394;
+    --yellow-vivid: #EED971;
+    --green: #B9D3B4;
+    --green-dark: #7aaa72;
+    --text: #2C3E35;
+    --text-light: #5a7060;
+    --white: #FFFFFF;
+    --radius: 20px;
+    --shadow: 0 4px 24px rgba(44,62,53,0.10);
+    --shadow-hover: 0 8px 32px rgba(44,62,53,0.18);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Nunito', sans-serif;
+    background: var(--yellow);
+    color: var(--text);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px 16px;
+    position: relative;
+    overflow-x: hidden;
+  }
+
+  /* ---- LEMON DECOR ---- */
+  .deco {
+    position: fixed;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 0;
+  }
+  .deco-1 {
+    width: 340px; height: 340px;
+    background: radial-gradient(circle at 40% 40%, #fff7a0 0%, #f5d94e55 60%, transparent 100%);
+    top: -100px; right: -80px;
+  }
+  .deco-2 {
+    width: 220px; height: 220px;
+    background: radial-gradient(circle at 60% 60%, #b9d3b466 0%, transparent 80%);
+    bottom: -60px; left: -60px;
+  }
+  .deco-3 {
+    width: 120px; height: 120px;
+    background: radial-gradient(circle at 50% 50%, #eed97144 0%, transparent 80%);
+    top: 40%; left: 4%;
+  }
+  .deco-4 {
+    width: 80px; height: 80px;
+    background: radial-gradient(circle at 50% 50%, #b9d3b488 0%, transparent 80%);
+    top: 20%; right: 6%;
+  }
+
+  /* lemon slice svg inline */
+  .lemon-icon {
+    display: inline-block;
+    font-size: 2.4rem;
+    line-height: 1;
+    filter: drop-shadow(0 2px 6px #eed97188);
+  }
+
+  /* ---- CARD ---- */
+  .card {
+    background: var(--white);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    max-width: 620px;
+    width: 100%;
+    padding: 40px 40px 36px;
+    position: relative;
+    z-index: 1;
+    animation: fadeUp 0.5s cubic-bezier(.22,1,.36,1) both;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(28px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ---- SCREENS ---- */
+  .screen { display: none; }
+  .screen.active { display: block; }
+
+  /* ---- START SCREEN ---- */
+  .start-lemons {
+    text-align: center;
+    margin-bottom: 8px;
+    font-size: 2.8rem;
+    letter-spacing: 6px;
+  }
+  .start-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.6rem, 4vw, 2.2rem);
+    font-weight: 700;
+    color: var(--text);
+    text-align: center;
+    line-height: 1.25;
+    margin-bottom: 18px;
+  }
+  .start-body {
+    font-size: 0.97rem;
+    line-height: 1.75;
+    color: var(--text-light);
+    text-align: center;
+    margin-bottom: 32px;
+  }
+  .start-body strong {
+    color: var(--text);
+  }
+
+  /* decorative lemon slice on start */
+  .lemon-slice-wrap {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 22px;
+  }
+  .lemon-slice {
+    width: 52px; height: 52px;
+    border-radius: 50%;
+    background: var(--yellow-vivid);
+    position: relative;
+    box-shadow: 0 2px 12px #eed97166;
+    overflow: hidden;
+  }
+  .lemon-slice::before {
+    content: '';
+    position: absolute;
+    inset: 4px;
+    border-radius: 50%;
+    background: #fdf6b2;
+    box-shadow: inset 0 0 0 2px #eed97188;
+  }
+  .lemon-slice::after {
+    content: '';
+    position: absolute;
+    inset: 14px;
+    border-radius: 50%;
+    background: #fff8c0;
+  }
+  .lemon-slice.sm {
+    width: 38px; height: 38px;
+    align-self: center;
+    opacity: .7;
+  }
+  .lemon-slice.sm::before { inset: 3px; }
+  .lemon-slice.sm::after { inset: 10px; }
+
+  /* ---- BTN ---- */
+  .btn {
+    display: block;
+    width: 100%;
+    padding: 16px 24px;
+    border: none;
+    border-radius: var(--radius);
+    font-family: 'Nunito', sans-serif;
+    font-size: 1.05rem;
+    font-weight: 800;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+  }
+  .btn-primary {
+    background: var(--yellow-vivid);
+    color: var(--text);
+    box-shadow: 0 4px 18px #eed97166;
+  }
+  .btn-primary:hover {
+    background: var(--green);
+    box-shadow: 0 8px 28px #b9d3b466;
+    transform: translateY(-2px);
+  }
+
+  /* ---- PROGRESS ---- */
+  .progress-label {
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: var(--text-light);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+    text-align: right;
+  }
+  .progress-bar-wrap {
+    width: 100%;
+    height: 7px;
+    background: var(--yellow);
+    border-radius: 99px;
+    overflow: hidden;
+    margin-bottom: 28px;
+  }
+  .progress-bar-fill {
+    height: 100%;
+    background: var(--green-dark);
+    border-radius: 99px;
+    transition: width 0.5s cubic-bezier(.22,1,.36,1);
+  }
+
+  /* ---- QUESTION ---- */
+  .question-text {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.05rem, 2.5vw, 1.3rem);
+    font-weight: 700;
+    line-height: 1.45;
+    color: var(--text);
+    margin-bottom: 24px;
+  }
+
+  /* ---- OPTIONS ---- */
+  .options { display: flex; flex-direction: column; gap: 12px; }
+  .option-btn {
+    background: var(--white);
+    border: 2px solid #e8e3c8;
+    border-radius: 16px;
+    padding: 15px 18px;
+    font-family: 'Nunito', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--text);
+    cursor: pointer;
+    text-align: left;
+    transition: all 0.28s ease;
+    box-shadow: 0 2px 10px rgba(44,62,53,0.06);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    line-height: 1.4;
+  }
+  .option-btn:hover {
+    background: var(--green);
+    border-color: var(--green-dark);
+    transform: translateY(-3px) scale(1.01);
+    box-shadow: var(--shadow-hover);
+  }
+  .option-btn:active {
+    transform: scale(0.98);
+  }
+  .option-btn.selected {
+    background: var(--yellow-vivid);
+    border-color: #c8b84a;
+    transform: scale(0.99);
+  }
+  .opt-label {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    min-width: 30px;
+    border-radius: 50%;
+    background: var(--yellow);
+    font-weight: 800;
+    font-size: 0.85rem;
+    color: var(--text);
+    transition: background 0.28s ease;
+  }
+  .option-btn:hover .opt-label {
+    background: var(--white);
+  }
+
+  /* ---- RESULT SCREEN ---- */
+  .result-lemon-row {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 18px;
+  }
+  .result-archetype {
+    font-size: 0.78rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    color: var(--green-dark);
+    text-align: center;
+    margin-bottom: 6px;
+  }
+  .result-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.5rem, 4vw, 2rem);
+    font-weight: 700;
+    color: var(--text);
+    text-align: center;
+    line-height: 1.25;
+    margin-bottom: 18px;
+  }
+  .result-body {
+    font-size: 0.96rem;
+    line-height: 1.75;
+    color: var(--text-light);
+    margin-bottom: 22px;
+  }
+  .result-cta-label {
+    font-weight: 700;
+    color: var(--text);
+    font-size: 0.97rem;
+    margin-bottom: 10px;
+  }
+
+  /* ---- KEYWORD HIGHLIGHT ---- */
+  .keyword-box {
+    background: var(--yellow-vivid);
+    border-radius: 14px;
+    padding: 18px 22px;
+    text-align: center;
+    margin-bottom: 28px;
+    box-shadow: 0 4px 20px #eed97155;
+    position: relative;
+    overflow: hidden;
+  }
+  .keyword-box::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      -45deg,
+      transparent,
+      transparent 8px,
+      rgba(255,255,255,0.18) 8px,
+      rgba(255,255,255,0.18) 10px
+    );
+    pointer-events: none;
+  }
+  .keyword-label {
+    font-size: 0.78rem;
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--text);
+    opacity: 0.7;
+    margin-bottom: 6px;
+  }
+  .keyword-word {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.8rem, 6vw, 2.8rem);
+    font-weight: 700;
+    color: #1a2417;
+    letter-spacing: 4px;
+    display: block;
+  }
+
+  .restart-link {
+    text-align: center;
+    margin-top: 16px;
+  }
+  .restart-link button {
+    background: none;
+    border: none;
+    font-family: 'Nunito', sans-serif;
+    font-size: 0.88rem;
+    color: var(--text-light);
+    cursor: pointer;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    transition: color 0.2s;
+  }
+  .restart-link button:hover { color: var(--text); }
+
+  @media (max-width: 480px) {
+    .card { padding: 28px 20px 24px; }
+    .option-btn { font-size: 0.9rem; padding: 13px 14px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Decorative circles -->
+<div class="deco deco-1"></div>
+<div class="deco deco-2"></div>
+<div class="deco deco-3"></div>
+<div class="deco deco-4"></div>
+
+<div class="card">
+
+  <!-- ===== START SCREEN ===== -->
+  <div class="screen active" id="screen-start">
+    <div class="lemon-slice-wrap">
+      <div class="lemon-slice sm"></div>
+      <div class="lemon-slice"></div>
+      <div class="lemon-slice sm"></div>
+    </div>
+    <h1 class="start-title">Привіт! Рада бачити тебе тут 🍋</h1>
+    <p class="start-body">
+      Цей тест — твоя особиста точка відліку перед <strong>головним літом у житті</strong>. Він займе всього 2 хвилини, але підсвітить те, що роками непомітно зливало твою продуктивність, гроші та енергію.<br><br>
+      Пройди 7 коротких питань, дізнайся свій особистий напрям зросту на це літо та забери персоналізований список із 50 дій на це літо. Це не банальний чек-лист, а покроковий план, який трансформує твою особистість, проявить твою суперсилу та виведе реалізацію на абсолютно новий рівень.<br><br>
+      Спробуємо?
+    </p>
+    <button class="btn btn-primary" onclick="startQuiz()">Розпочати тест 🍋</button>
+  </div>
+
+  <!-- ===== QUIZ SCREEN ===== -->
+  <div class="screen" id="screen-quiz">
+    <div class="progress-label" id="progress-label">Питання 1 з 7</div>
+    <div class="progress-bar-wrap">
+      <div class="progress-bar-fill" id="progress-fill" style="width:0%"></div>
+    </div>
+    <p class="question-text" id="question-text"></p>
+    <div class="options" id="options-wrap"></div>
+  </div>
+
+  <!-- ===== RESULT SCREEN ===== -->
+  <div class="screen" id="screen-result">
+    <div class="result-lemon-row">
+      <div class="lemon-slice sm"></div>
+      <div class="lemon-slice"></div>
+      <div class="lemon-slice sm"></div>
+    </div>
+    <div class="result-archetype" id="result-archetype"></div>
+    <h2 class="result-title" id="result-title"></h2>
+    <p class="result-body" id="result-body"></p>
+    <p class="result-cta-label" id="result-cta-label"></p>
+    <div class="keyword-box">
+      <div class="keyword-label">Кодове слово</div>
+      <span class="keyword-word" id="keyword-word"></span>
+    </div>
+    <button class="btn btn-primary" onclick="openDirect()">Написати в Директ 🍋</button>
+    <div class="restart-link"><button onclick="restartQuiz()">Пройти ще раз</button></div>
+  </div>
+
+</div>
+
+<script>
+const questions = [
+  {
+    q: "Понеділок, ранок. Ти відкриваєш телефон у ліжку. Що там?",
+    opts: [
+      { label:"A", text:"Нова геніальна ідея! Терміново записую в нотатки, поки не забула", type:"A" },
+      { label:"B", text:"Дивлюся на готову чернетку поста... і закриваю. Опублікую завтра", type:"B" },
+      { label:"C", text:"Одразу відкриваю робочі чати й відповідаю клієнту. Навіть не вмилася", type:"C" },
+      { label:"D", text:"Дивлюся на свій план на тиждень і вже хочу плакати від кількості завдань", type:"D" },
+    ]
+  },
+  {
+    q: "Клієнт просить «по-братськи» зробити правку чи дрібну задачу. Твоя реакція:",
+    opts: [
+      { label:"A", text:"«Та легко!» — мені цікаво.", type:"A" },
+      { label:"B", text:"Погоджуюся, бо якщо відмовлю — він подумає, що я поганий спеціаліст", type:"B" },
+      { label:"C", text:"Мовчки роблю. Головне, щоб клієнт був задоволений.", type:"C" },
+      { label:"D", text:"Кажу «так», а всередині кричу: «Ну навіщо я знову підписалася на це?!»", type:"D" },
+    ]
+  },
+  {
+    q: "Знайомі запитують: «Ну що, над чим ти зараз працюєш?»",
+    opts: [
+      { label:"A", text:"Починаю перераховувати 5 проєктів і сама шокована, коли я все це встигаю", type:"A" },
+      { label:"B", text:"Кажу загальними фразами, бо «от коли запущуся/вийду на дохід — тоді розкажу»", type:"B" },
+      { label:"C", text:"«Працюю 24/7, веду 4 клієнтів паралельно, світа білого не бачу»", type:"C" },
+      { label:"D", text:"Ой, я якраз міняю нішу чи позиціонування, тому поки все складно", type:"D" },
+    ]
+  },
+  {
+    q: "Твій класичний спосіб встановити цінник на свої послуги:",
+    opts: [
+      { label:"A", text:"Поставила «як у всіх» рік тому, так воно й стоїть", type:"A" },
+      { label:"B", text:"Ставлю нижче ринку. Ну яка вища ціна, мені ще треба три курси пройти", type:"B" },
+      { label:"C", text:"Працюю за копійки на старому чеку. Боюся підняти, щоб усі не пішли", type:"C" },
+      { label:"D", text:"Постійно кручу ціну: то підніму від злості, то опущу, бо ніхто не купує", type:"D" },
+    ]
+  },
+  {
+    q: "Що найчастіше зливає твою продуктивність?",
+    opts: [
+      { label:"A", text:"Загоряюся новою ідеєю, кидаю стару на пів дорозі й біжу робити нове", type:"A" },
+      { label:"B", text:"Синдром самозванця. Усе готово, але викласти чи запустити — панічний страх", type:"B" },
+      { label:"C", text:"Рутина. Я так задовбалася на поточних задачах, що на ріст немає сил", type:"C" },
+      { label:"D", text:"Розфокус. Хочу і туди, і сюди, в підсумку топчуся на одному місці", type:"D" },
+    ]
+  },
+  {
+    q: "У тебе з'явився омріяний вільний день. Як він минає?",
+    opts: [
+      { label:"A", text:"Хотіла відпочити, але випадково придумала щось класне і просиділа весь день за компом", type:"A" },
+      { label:"B", text:"Гортаю стрічку, дивлюся на успішний успіх колег і почуваюся нікчемою", type:"B" },
+      { label:"C", text:"Робочі чати не відпускають, усе одно «гашу пожежі» й відповідаю усім", type:"C" },
+      { label:"D", text:"Складаю списки списків, розбираю хаос у нотатках, користі — нуль", type:"D" },
+    ]
+  },
+  {
+    q: "Що особисто для тебе означає «трансформаційне літо»?",
+    opts: [
+      { label:"A", text:"Нарешті ДОВЕСТИ хоча б ОДНУ велику справу до кінця і не кинути", type:"A" },
+      { label:"B", text:"Перестати ховатися в тіні і показати себе світові", type:"B" },
+      { label:"C", text:"Працюємо менше, заробляю більше і відпочиваю БЕЗ почуття провини", type:"C" },
+      { label:"D", text:"Нарешті обрати ОДИН чіткий напрям і спокійно бити в одну точку", type:"D" },
+    ]
+  },
+];
+
+const results = {
+  A: {
+    archetype: "Твій напрям зросту",
+    title: "Хаотик-геній",
+    body: "Ти — людина-ідея. Енергії на трьох, у голові завжди щось нове та цікаве. Проблема одна: ти вже почала 7 проєктів, з яких закінчила півтора.\n\nЦього літа тобі не потрібно більше ідей — тобі потрібна система та одна завершена справа, якою ти пишатимешся.\n\nЯ зібрала для тебе 50 справ на це літо — спеціально під твою мету. Тільки те, що реально змінить твій підхід до роботи та життя.",
+    ctaLabel: "Як забрати свій список? Повертайся до мене в Директ і пиши кодове слово:",
+    keyword: "ХАОС",
+  },
+  B: {
+    archetype: "Твій напрям зросту",
+    title: "Перфекціоніст-невидимка",
+    body: "Ти знаєш більше, ніж здається, вмієш більше, ніж показуєш — і саме в цьому проблема. Ти ховаєшся за «ще не готово», «спочатку довчуся», «потім, коли буду впевненішою».\n\nЦього літа у тебе одне завдання: вийти з тіні. Не ідеально, а по-справжньому.\n\nЯ зібрала для тебе 50 справ на це літо — спеціально під твій тип. Кроки, які витягнуть тебе з чернеток у реальне життя.",
+    ctaLabel: "Як забрати свій список? Повертайся до мене в Директ і пиши кодове слово:",
+    keyword: "ІДЕАЛ",
+  },
+  C: {
+    archetype: "Твій напрям зросту",
+    title: "Воркоголік",
+    body: "Ти працюєш найбільше в цій кімнаті. І втомилася теж найбільше. Берешся за все поспіль, не вмієш відмовляти, живеш у режимі «ще один клієнт і стане легше» — але легше не стає.\n\nЦього літа у тебе одне завдання: почати працювати менше, а заробляти більше. Це реально — просто ніхто не пояснював як.\n\nЯ зібрала для тебе 50 справ на це літо — спеціально під твій тип. Про кордони, гроші та життя поза режимом виживання.",
+    ctaLabel: "Як забрати свій список? Повертайся до мене в Директ і пиши кодове слово:",
+    keyword: "БАЛАНС",
+  },
+  D: {
+    archetype: "Твій напрям зросту",
+    title: "На амбіціях",
+    body: "Ти точно знаєш, що хочеш більшого — більше грошей, аудиторії, впливу. Ти активна, навчаєшся, стежиш за трендами. Але щось постійно йде не так: розпорошуєшся, змінюєш напрямки, відчуваєш, що топчешся на місці попри постійний рух.\n\nЦього літа у тебе одне завдання: обрати вектор і йти тільки туди.\n\nЯ зібрала для тебе 50 справ на це літо — спеціально під твій тип. Про стратегію, фокус і нарешті зрозумілий шлях розвитку.",
+    ctaLabel: "Як забрати свій список? Повертайся до мене в Директ і пиши кодове слово:",
+    keyword: "ВЕКТОР",
+  },
+};
+
+let scores = { A:0, B:0, C:0, D:0 };
+let current = 0;
+let answered = false;
+
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  const el = document.getElementById(id);
+  el.classList.add('active');
+  el.style.animation = 'none';
+  el.offsetHeight;
+  el.style.animation = '';
+}
+
+function startQuiz() {
+  scores = { A:0, B:0, C:0, D:0 };
+  current = 0;
+  showScreen('screen-quiz');
+  renderQuestion();
+}
+
+function renderQuestion() {
+  answered = false;
+  const q = questions[current];
+  document.getElementById('progress-label').textContent = `Питання ${current+1} з ${questions.length}`;
+  document.getElementById('progress-fill').style.width = `${(current / questions.length) * 100}%`;
+  document.getElementById('question-text').textContent = q.q;
+
+  const wrap = document.getElementById('options-wrap');
+  wrap.innerHTML = '';
+  q.opts.forEach(opt => {
+    const btn = document.createElement('button');
+    btn.className = 'option-btn';
+    btn.innerHTML = `<span class="opt-label">${opt.label}</span><span>${opt.text}</span>`;
+    btn.onclick = () => choose(opt.type, btn);
+    wrap.appendChild(btn);
+  });
+}
+
+function choose(type, btn) {
+  if (answered) return;
+  answered = true;
+  scores[type]++;
+  btn.classList.add('selected');
+
+  // disable all
+  document.querySelectorAll('.option-btn').forEach(b => b.style.pointerEvents = 'none');
+
+  setTimeout(() => {
+    current++;
+    if (current < questions.length) {
+      renderQuestion();
+    } else {
+      showResult();
+    }
+  }, 480);
+}
+
+function getWinner() {
+  let best = 'A', bestScore = scores['A'];
+  for (const t of ['B','C','D']) {
+    if (scores[t] > bestScore) { best = t; bestScore = scores[t]; }
+  }
+  return best;
+}
+
+function showResult() {
+  const winner = getWinner();
+  const r = results[winner];
+  document.getElementById('result-archetype').textContent = r.archetype;
+  document.getElementById('result-title').textContent = r.title;
+  // format body with line breaks
+  document.getElementById('result-body').innerHTML = r.body.replace(/\n\n/g,'<br><br>');
+  document.getElementById('result-cta-label').textContent = r.ctaLabel;
+  document.getElementById('keyword-word').textContent = r.keyword;
+  showScreen('screen-result');
+}
+
+function openDirect() {
+  window.open('https://www.instagram.com/direct/inbox/', '_blank');
+}
+
+function restartQuiz() {
+  startQuiz();
+}
+</script>
+</body>
+</html>
