@@ -35,7 +35,7 @@
     overflow-x: hidden;
   }
 
-  /* ---- LEMON DECOR ---- */
+  /* ---- LEMON DECOR BG ---- */
   .deco {
     position: fixed;
     border-radius: 50%;
@@ -62,13 +62,16 @@
     background: radial-gradient(circle at 50% 50%, #b9d3b488 0%, transparent 80%);
     top: 20%; right: 6%;
   }
-
-  /* lemon slice svg inline */
-  .lemon-icon {
-    display: inline-block;
-    font-size: 2.4rem;
-    line-height: 1;
-    filter: drop-shadow(0 2px 6px #eed97188);
+  /* extra bg decos */
+  .deco-5 {
+    width: 60px; height: 60px;
+    background: radial-gradient(circle at 50% 50%, #eed97166 0%, transparent 80%);
+    bottom: 20%; right: 3%;
+  }
+  .deco-6 {
+    width: 160px; height: 160px;
+    background: radial-gradient(circle at 40% 60%, #b9d3b433 0%, transparent 80%);
+    top: 10%; left: -40px;
   }
 
   /* ---- CARD ---- */
@@ -93,37 +96,11 @@
   .screen { display: none; }
   .screen.active { display: block; }
 
-  /* ---- START SCREEN ---- */
-  .start-lemons {
-    text-align: center;
-    margin-bottom: 8px;
-    font-size: 2.8rem;
-    letter-spacing: 6px;
-  }
-  .start-title {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(1.6rem, 4vw, 2.2rem);
-    font-weight: 700;
-    color: var(--text);
-    text-align: center;
-    line-height: 1.25;
-    margin-bottom: 18px;
-  }
-  .start-body {
-    font-size: 0.97rem;
-    line-height: 1.75;
-    color: var(--text-light);
-    text-align: center;
-    margin-bottom: 32px;
-  }
-  .start-body strong {
-    color: var(--text);
-  }
-
-  /* decorative lemon slice on start */
+  /* ---- CSS LEMON SLICE ---- */
   .lemon-slice-wrap {
     display: flex;
     justify-content: center;
+    align-items: center;
     gap: 10px;
     margin-bottom: 22px;
   }
@@ -134,6 +111,7 @@
     position: relative;
     box-shadow: 0 2px 12px #eed97166;
     overflow: hidden;
+    flex-shrink: 0;
   }
   .lemon-slice::before {
     content: '';
@@ -151,12 +129,53 @@
     background: #fff8c0;
   }
   .lemon-slice.sm {
-    width: 38px; height: 38px;
-    align-self: center;
-    opacity: .7;
+    width: 34px; height: 34px;
+    opacity: .65;
   }
   .lemon-slice.sm::before { inset: 3px; }
-  .lemon-slice.sm::after { inset: 10px; }
+  .lemon-slice.sm::after { inset: 9px; }
+  .lemon-slice.xs {
+    width: 22px; height: 22px;
+    opacity: .45;
+  }
+  .lemon-slice.xs::before { inset: 2px; }
+  .lemon-slice.xs::after { inset: 6px; }
+
+  /* ---- START SCREEN ---- */
+  .start-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.6rem, 4vw, 2.2rem);
+    font-weight: 700;
+    color: var(--text);
+    text-align: center;
+    line-height: 1.25;
+    margin-bottom: 20px;
+  }
+  .start-body {
+    font-size: 0.97rem;
+    line-height: 1.8;
+    color: var(--text-light);
+    text-align: center;
+    margin-bottom: 10px;
+  }
+  .start-body strong {
+    color: var(--text);
+    font-weight: 800;
+  }
+  /* inline lemon row inside start text */
+  .start-lemon-divider {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    margin: 18px 0;
+  }
+  .divider-line {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, transparent, #e8d96055, transparent);
+    max-width: 80px;
+  }
 
   /* ---- BTN ---- */
   .btn {
@@ -176,6 +195,7 @@
     background: var(--yellow-vivid);
     color: var(--text);
     box-shadow: 0 4px 18px #eed97166;
+    margin-top: 24px;
   }
   .btn-primary:hover {
     background: var(--green);
@@ -244,9 +264,7 @@
     transform: translateY(-3px) scale(1.01);
     box-shadow: var(--shadow-hover);
   }
-  .option-btn:active {
-    transform: scale(0.98);
-  }
+  .option-btn:active { transform: scale(0.98); }
   .option-btn.selected {
     background: var(--yellow-vivid);
     border-color: #c8b84a;
@@ -256,8 +274,7 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 30px;
-    height: 30px;
+    width: 30px; height: 30px;
     min-width: 30px;
     border-radius: 50%;
     background: var(--yellow);
@@ -266,14 +283,83 @@
     color: var(--text);
     transition: background 0.28s ease;
   }
-  .option-btn:hover .opt-label {
-    background: var(--white);
+  .option-btn:hover .opt-label { background: var(--white); }
+
+  /* ---- LOADING SCREEN ---- */
+  .loading-wrap {
+    text-align: center;
+    padding: 8px 0;
+  }
+  .loading-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.3rem, 3.5vw, 1.75rem);
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 8px;
+  }
+  .loading-sub {
+    font-size: 0.9rem;
+    color: var(--text-light);
+    margin-bottom: 38px;
+    font-weight: 600;
+  }
+
+  /* bouncing emoji lemons row */
+  .bounce-row {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    gap: 14px;
+    height: 80px;
+    margin-bottom: 38px;
+  }
+  .lemon-b {
+    font-size: 2.4rem;
+    display: inline-block;
+    animation: lBounce 1.1s ease-in-out infinite;
+    filter: drop-shadow(0 4px 8px #eed97177);
+    line-height: 1;
+    transform-origin: bottom center;
+  }
+  .lemon-b:nth-child(1){ animation-delay:0s;    font-size:2rem;   }
+  .lemon-b:nth-child(2){ animation-delay:0.18s; font-size:2.8rem; }
+  .lemon-b:nth-child(3){ animation-delay:0.36s; font-size:2.2rem; }
+  .lemon-b:nth-child(4){ animation-delay:0.54s; font-size:2.9rem; }
+  .lemon-b:nth-child(5){ animation-delay:0.72s; font-size:2rem;   }
+
+  @keyframes lBounce {
+    0%,100%{ transform: translateY(0)    rotate(-6deg) scale(1);    opacity:.7; }
+    50%    { transform: translateY(-22px) rotate(6deg) scale(1.18); opacity:1;  }
+  }
+
+  /* progress bar on loading */
+  .loading-bar-wrap {
+    width: 100%;
+    height: 8px;
+    background: var(--yellow);
+    border-radius: 99px;
+    overflow: hidden;
+    margin-bottom: 14px;
+  }
+  .loading-bar-fill {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, var(--green-dark), #a8d16e);
+    border-radius: 99px;
+    transition: width 0.12s linear;
+  }
+  .loading-percent {
+    font-size: 0.82rem;
+    font-weight: 800;
+    color: var(--text-light);
+    letter-spacing: 1px;
   }
 
   /* ---- RESULT SCREEN ---- */
   .result-lemon-row {
     display: flex;
     justify-content: center;
+    align-items: center;
     gap: 8px;
     margin-bottom: 18px;
   }
@@ -297,9 +383,20 @@
   }
   .result-body {
     font-size: 0.96rem;
-    line-height: 1.75;
+    line-height: 1.8;
     color: var(--text-light);
     margin-bottom: 22px;
+  }
+  .result-body strong {
+    color: var(--text);
+    font-weight: 800;
+  }
+  .result-lemon-mid {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 7px;
+    margin: 18px 0;
   }
   .result-cta-label {
     font-weight: 700;
@@ -308,7 +405,7 @@
     margin-bottom: 10px;
   }
 
-  /* ---- KEYWORD HIGHLIGHT ---- */
+  /* ---- KEYWORD ---- */
   .keyword-box {
     background: var(--yellow-vivid);
     border-radius: 14px;
@@ -324,11 +421,8 @@
     position: absolute;
     inset: 0;
     background: repeating-linear-gradient(
-      -45deg,
-      transparent,
-      transparent 8px,
-      rgba(255,255,255,0.18) 8px,
-      rgba(255,255,255,0.18) 10px
+      -45deg, transparent, transparent 8px,
+      rgba(255,255,255,0.18) 8px, rgba(255,255,255,0.18) 10px
     );
     pointer-events: none;
   }
@@ -370,32 +464,55 @@
   @media (max-width: 480px) {
     .card { padding: 28px 20px 24px; }
     .option-btn { font-size: 0.9rem; padding: 13px 14px; }
+    .bounce-row { gap: 10px; }
   }
 </style>
 </head>
 <body>
 
-<!-- Decorative circles -->
+<!-- BG decorative blobs -->
 <div class="deco deco-1"></div>
 <div class="deco deco-2"></div>
 <div class="deco deco-3"></div>
 <div class="deco deco-4"></div>
+<div class="deco deco-5"></div>
+<div class="deco deco-6"></div>
 
 <div class="card">
 
   <!-- ===== START SCREEN ===== -->
   <div class="screen active" id="screen-start">
     <div class="lemon-slice-wrap">
+      <div class="lemon-slice xs"></div>
       <div class="lemon-slice sm"></div>
       <div class="lemon-slice"></div>
       <div class="lemon-slice sm"></div>
+      <div class="lemon-slice xs"></div>
     </div>
+
     <h1 class="start-title">Привіт! Рада бачити тебе тут 🍋</h1>
+
     <p class="start-body">
-      Цей тест — твоя особиста точка відліку перед <strong>головним літом у житті</strong>. Він займе всього 2 хвилини, але підсвітить те, що роками непомітно зливало твою продуктивність, гроші та енергію.<br><br>
-      Пройди 7 коротких питань, дізнайся свій особистий вектор зросту на це літо та </strong>забери персоналізований список із 50 дій на це літо.</strong> Це не банальний чек-лист, а покроковий план, який трансформує твою особистість, проявить твою суперсилу та виведе реалізацію на абсолютно новий рівень.<br><br>
-      
+      Цей тест — твоя особиста точка відліку перед <strong>головним літом у житті</strong>.
+      Він займе всього <strong>2 хвилини</strong>, але підсвітить те, що роками непомітно зливало
+      твою продуктивність, гроші та енергію.
     </p>
+
+    <div class="start-lemon-divider">
+      <div class="divider-line"></div>
+      <div class="lemon-slice xs"></div>
+      <div class="lemon-slice sm"></div>
+      <div class="lemon-slice xs"></div>
+      <div class="divider-line"></div>
+    </div>
+
+    <p class="start-body">
+      Пройди <strong>7 коротких питань</strong>, дізнайся свій особистий вектор зросту на це літо
+      та забери <strong>персоналізований список із 50 дій</strong>.
+      Це не банальний чек-лист, а <strong>покроковий план</strong>, який трансформує твою особистість,
+      проявить твою суперсилу та виведе реалізацію на абсолютно новий рівень.
+    </p>
+
     <button class="btn btn-primary" onclick="startQuiz()">Розпочати тест 🍋</button>
   </div>
 
@@ -409,16 +526,47 @@
     <div class="options" id="options-wrap"></div>
   </div>
 
+  <!-- ===== LOADING SCREEN ===== -->
+  <div class="screen" id="screen-loading">
+    <div class="loading-wrap">
+      <h2 class="loading-title">Підбиваю підсумки<span id="loading-dots"></span></h2>
+      <p class="loading-sub">Аналізую твої відповіді ✨</p>
+
+      <div class="bounce-row">
+        <span class="lemon-b">🍋</span>
+        <span class="lemon-b">🍋</span>
+        <span class="lemon-b">🍋</span>
+        <span class="lemon-b">🍋</span>
+        <span class="lemon-b">🍋</span>
+      </div>
+
+      <div class="loading-bar-wrap">
+        <div class="loading-bar-fill" id="loading-bar"></div>
+      </div>
+      <div class="loading-percent" id="loading-percent">0%</div>
+    </div>
+  </div>
+
   <!-- ===== RESULT SCREEN ===== -->
   <div class="screen" id="screen-result">
     <div class="result-lemon-row">
+      <div class="lemon-slice xs"></div>
       <div class="lemon-slice sm"></div>
       <div class="lemon-slice"></div>
       <div class="lemon-slice sm"></div>
+      <div class="lemon-slice xs"></div>
     </div>
+
     <div class="result-archetype" id="result-archetype"></div>
     <h2 class="result-title" id="result-title"></h2>
     <p class="result-body" id="result-body"></p>
+
+    <div class="result-lemon-mid">
+      <div class="lemon-slice xs"></div>
+      <div class="lemon-slice sm"></div>
+      <div class="lemon-slice xs"></div>
+    </div>
+
     <p class="result-cta-label" id="result-cta-label"></p>
     <div class="keyword-box">
       <div class="keyword-label">Кодове слово</div>
@@ -491,7 +639,7 @@ const questions = [
     opts: [
       { label:"A", text:"Нарешті ДОВЕСТИ хоча б ОДНУ велику справу до кінця і не кинути", type:"A" },
       { label:"B", text:"Перестати ховатися в тіні і показати себе світові", type:"B" },
-      { label:"C", text:"Працюємо менше, заробляю більше і відпочиваю БЕЗ почуття провини", type:"C" },
+      { label:"C", text:"Працюю менше, заробляю більше і відпочиваю БЕЗ почуття провини", type:"C" },
       { label:"D", text:"Нарешті обрати ОДИН чіткий напрям і спокійно бити в одну точку", type:"D" },
     ]
   },
@@ -501,28 +649,28 @@ const results = {
   A: {
     archetype: "Твій вектор зросту",
     title: "Від хаосу до системи",
-    body: "Ти — людина-ідея. Енергії на трьох, у голові завжди щось нове та цікаве. Проблема одна: ти вже почала 7 проєктів, з яких закінчила півтора.\n\nЦього літа тобі не потрібно більше ідей — тобі потрібна система та одна завершена справа, якою ти пишатимешся.\n\nЯ зібрала для тебе 50 справ на це літо — спеціально під твою мету. Тільки те, що реально змінить твій підхід до роботи та життя.",
+    body: "Ти — <strong>людина-ідея</strong>. Енергії на трьох, у голові завжди щось нове та цікаве. Проблема одна: ти вже почала 7 проєктів, з яких закінчила півтора.\n\nЦього літа тобі не потрібно більше ідей — тобі потрібна <strong>система та одна завершена справа</strong>, якою ти пишатимешся.\n\nЯ зібрала для тебе <strong>50 справ на це літо</strong> — спеціально під твою мету. Тільки те, що реально змінить твій підхід до роботи та життя.",
     ctaLabel: "Як забрати свій список? Повертайся до мене в Директ і пиши кодове слово:",
     keyword: "ХАОС",
   },
   B: {
     archetype: "Твій вектор зросту",
     title: "Від ідеалізації до дій",
-    body: "Ти знаєш більше, ніж здається, вмієш більше, ніж показуєш — і саме в цьому проблема. Ти ховаєшся за «ще не готово», «спочатку довчуся», «потім, коли буду впевненішою».\n\nЦього літа у тебе одне завдання: вийти з тіні. Не ідеально, а по-справжньому.\n\nЯ зібрала для тебе 50 справ на це літо — спеціально під твій тип. Кроки, які витягнуть тебе з чернеток у реальне життя.",
+    body: "Ти знаєш більше, ніж здається, <strong>вмієш більше, ніж показуєш</strong> — і саме в цьому проблема. Ти ховаєшся за «ще не готово», «спочатку довчуся», «потім, коли буду впевненішою».\n\nЦього літа у тебе одне завдання: <strong>вийти з тіні</strong>. Не ідеально, а по-справжньому.\n\nЯ зібрала для тебе <strong>50 справ на це літо</strong> — спеціально під твій тип. Кроки, які витягнуть тебе з чернеток у реальне життя.",
     ctaLabel: "Як забрати свій список? Повертайся до мене в Директ і пиши кодове слово:",
     keyword: "ІДЕАЛ",
   },
   C: {
     archetype: "Твій вектор зросту",
     title: "Від воркоголізму до балансу",
-    body: "Ти працюєш найбільше в цій кімнаті. І втомилася теж найбільше. Берешся за все поспіль, не вмієш відмовляти, живеш у режимі «ще один клієнт і стане легше» — але легше не стає.\n\nЦього літа у тебе одне завдання: почати працювати менше, а заробляти більше. Це реально — просто ніхто не пояснював як.\n\nЯ зібрала для тебе 50 справ на це літо — спеціально під твій тип. Про кордони, гроші та життя поза режимом виживання.",
+    body: "Ти <strong>працюєш найбільше</strong> в цій кімнаті. І втомилася теж найбільше. Берешся за все поспіль, не вмієш відмовляти, живеш у режимі «ще один клієнт і стане легше» — але легше не стає.\n\nЦього літа у тебе одне завдання: <strong>працювати менше, а заробляти більше</strong>. Це реально — просто ніхто не пояснював як.\n\nЯ зібрала для тебе <strong>50 справ на це літо</strong> — спеціально під твій тип. Про кордони, гроші та життя поза режимом виживання.",
     ctaLabel: "Як забрати свій список? Повертайся до мене в Директ і пиши кодове слово:",
     keyword: "БАЛАНС",
   },
   D: {
     archetype: "Твій вектор зросту",
     title: "Від амбіцій до реального успіху",
-    body: "Ти точно знаєш, що хочеш більшого — більше грошей, аудиторії, впливу. Ти активна, навчаєшся, стежиш за трендами. Але щось постійно йде не так: розпорошуєшся, змінюєш напрямки, відчуваєш, що топчешся на місці попри постійний рух.\n\nЦього літа у тебе одне завдання: обрати вектор і йти тільки туди.\n\nЯ зібрала для тебе 50 справ на це літо — спеціально під твій тип. Про стратегію, фокус і нарешті зрозумілий шлях розвитку.",
+    body: "Ти точно знаєш, що хочеш <strong>більшого — більше грошей, аудиторії, впливу</strong>. Ти активна, навчаєшся, стежиш за трендами. Але щось постійно йде не так: розпорошуєшся, змінюєш напрямки, відчуваєш, що топчешся на місці попри постійний рух.\n\nЦього літа у тебе одне завдання: <strong>обрати вектор і йти тільки туди</strong>.\n\nЯ зібрала для тебе <strong>50 справ на це літо</strong> — спеціально під твій тип. Про стратегію, фокус і нарешті зрозумілий шлях розвитку.",
     ctaLabel: "Як забрати свій список? Повертайся до мене в Директ і пиши кодове слово:",
     keyword: "ЗРІСТ",
   },
@@ -571,8 +719,6 @@ function choose(type, btn) {
   answered = true;
   scores[type]++;
   btn.classList.add('selected');
-
-  // disable all
   document.querySelectorAll('.option-btn').forEach(b => b.style.pointerEvents = 'none');
 
   setTimeout(() => {
@@ -580,9 +726,45 @@ function choose(type, btn) {
     if (current < questions.length) {
       renderQuestion();
     } else {
-      showResult();
+      runLoadingScreen();
     }
   }, 480);
+}
+
+function runLoadingScreen() {
+  showScreen('screen-loading');
+
+  // animated dots
+  let dotCount = 0;
+  const dotsEl = document.getElementById('loading-dots');
+  const dotsInterval = setInterval(() => {
+    dotCount = (dotCount + 1) % 4;
+    dotsEl.textContent = '.'.repeat(dotCount);
+  }, 320);
+
+  // progress bar fill over ~2.5s
+  const barEl = document.getElementById('loading-bar');
+  const pctEl = document.getElementById('loading-percent');
+  const duration = 2500;
+  const startTime = performance.now();
+
+  function tick(now) {
+    const elapsed = now - startTime;
+    const progress = Math.min(elapsed / duration, 1);
+    // ease-out curve
+    const eased = 1 - Math.pow(1 - progress, 3);
+    const pct = Math.round(eased * 100);
+    barEl.style.width = pct + '%';
+    pctEl.textContent = pct + '%';
+
+    if (progress < 1) {
+      requestAnimationFrame(tick);
+    } else {
+      clearInterval(dotsInterval);
+      setTimeout(() => showResult(), 300);
+    }
+  }
+  requestAnimationFrame(tick);
 }
 
 function getWinner() {
@@ -598,7 +780,6 @@ function showResult() {
   const r = results[winner];
   document.getElementById('result-archetype').textContent = r.archetype;
   document.getElementById('result-title').textContent = r.title;
-  // format body with line breaks
   document.getElementById('result-body').innerHTML = r.body.replace(/\n\n/g,'<br><br>');
   document.getElementById('result-cta-label').textContent = r.ctaLabel;
   document.getElementById('keyword-word').textContent = r.keyword;
